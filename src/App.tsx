@@ -1,6 +1,7 @@
 import { useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import './App.css'
 import profileContext from './main'
+import SomeChlid from './SomeChild'
 
 const reducer = (state: number, action: { type: string }) => {
   switch(action.type){
@@ -44,6 +45,12 @@ function App() {
       return count2*count2
     },[count2])
 
+    const [counter,setCounter]=useState(0)
+
+    const showCounts =() =>{
+      alert("omoisyori")
+    }
+
   return (
     <>
       <h1>useState,useEffect</h1>
@@ -73,6 +80,10 @@ function App() {
       <div>カウント結果：{square}</div>
       <button onClick={()=>setCount1(count1+1)}>+</button>
       <button onClick={()=>setCount2(count2+1)}>+</button>
+      
+      <hr></hr>
+      <h1>useCallback</h1>
+      <SomeChlid showCount={showCounts}></SomeChlid>
     </>
   )
 }
