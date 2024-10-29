@@ -1,7 +1,8 @@
-import { useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import './App.css'
 import profileContext from './main'
 import SomeChlid from './SomeChild'
+import useLocalStorage from './useLocalStorage'
 
 const reducer = (state: number, action: { type: string }) => {
   switch(action.type){
@@ -47,9 +48,12 @@ function App() {
 
     const [counter,setCounter]=useState(0)
 
-    const showCounts =() =>{
+    const showCounts =useCallback(() =>{
       alert("omoisyori")
-    }
+      alert(`count:${counter}`)
+    },[])
+
+    const [age,setAge]= useLocalStorage("age",24)
 
   return (
     <>
@@ -84,6 +88,12 @@ function App() {
       <hr></hr>
       <h1>useCallback</h1>
       <SomeChlid showCount={showCounts}></SomeChlid>
+      <button onClick={()=>setCounter(counter+1)}></button>
+      
+      <hr></hr>
+      <h1>カスタムフック</h1>
+      <p>{age}</p>
+      <button onClick={()=>sessionStorage(80)}>年齢をセット</button>
     </>
   )
 }
