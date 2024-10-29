@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import './App.css'
 import profileContext from './main'
 
@@ -33,6 +33,17 @@ function App() {
       console.log(ref.current?.value)
     }
 
+    const [count1,setCount1] = useState(0)
+    const [count2,setCount2] = useState(0)
+
+    const square =useMemo(() =>{
+      let i = 0
+      while(i<200000){
+        i++
+      }
+      return count2*count2
+    },[count2])
+
   return (
     <>
       <h1>useState,useEffect</h1>
@@ -54,6 +65,14 @@ function App() {
       <p>カウント：{state}</p>
       <button onClick={()=>dispatch({type:"increment"})}>+</button>
       <button onClick={()=>dispatch({type:"decrement"})}>-</button>
+      
+      <hr></hr>
+      <h1>useMemo</h1>
+      <div>カウント１：{count1}</div>
+      <div>カウント２：{count2}</div>
+      <div>カウント結果：{square}</div>
+      <button onClick={()=>setCount1(count1+1)}>+</button>
+      <button onClick={()=>setCount2(count2+1)}>+</button>
     </>
   )
 }
